@@ -1,36 +1,33 @@
 import React, { Component } from "react";
-import css from "./css/NavBarSimple.module.css";
+import css from "./css/NavBarForm.module.css";
+import NavBarChild from "./NavBarChild";
 
-class NavBarSimple extends Component {
 
+class NavBarForm extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         
         this.state = {
-            message: "Hello, guest!",
-            buttonText: "Log in"
+            isLoggedIn: true,
         }
     }
-
-    handleclick = () => {
+    handleButtonClick = () => {
         this.setState((prevState) => ({
-            message: prevState.message === "Hello, guest!" ? "Welcome back, user!" : "Hello, guest!",
-            buttonText: prevState.buttonText === "Log out" ? "Log in" : "Log out",
-        }), ()=> console.log(this.state.message))
-        
+            isLoggedIn: prevState.isLoggedIn ? false: true
+        }),  () => console.log(this.state.isLoggedIn))
     }
 
     render() {
         return (
-            <div className={css.NavBar}>
+            <div className= {css.NavBar}>
                 <h1>My Gallery</h1>
-                <div>
-                    <span>{this.state.message}</span>
-                    <button onClick={() => this.handleclick()}>{this.state.buttonText}</button>
-                </div>
+                <NavBarChild
+                isLoggedIn={this.state.isLoggedIn}
+                handleClick={this.handleButtonClick}
+                />
             </div>
         )
     }
 }
 
-export default NavBarSimple
+export default NavBarForm
